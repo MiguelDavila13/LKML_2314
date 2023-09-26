@@ -43,6 +43,10 @@ view: flights {
   dimension: carrier {
     type: string
     sql: ${TABLE}.carrier ;;
+    link: {
+      label: "testing down"
+      url: "https://gcpl2314.cloud.looker.com/browse"
+    }
   }
 
   dimension: dep_delay {
