@@ -22,6 +22,19 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: test {
+    case: {
+      when: {
+        sql: 1 ;;
+        label: "testing and declaring"
+      }
+      when: {
+        sql: 2 ;;
+        label: "asfdasdfasf"
+      }
+    }
+  }
+
   # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
   # measures for this dimension, but you can also add measures of many different aggregates.
   # Click on the type parameter to see all the options in the Quick Help panel on the right.
@@ -36,6 +49,16 @@ view: users {
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
+  }
+
+  dimension: test_field {
+    type: string
+    sql: "" ;;
+  }
+
+  measure: test_measure {
+    type: count
+    filters: [test_field: ""]
   }
 
   dimension: country {
@@ -86,18 +109,23 @@ view: users {
     drill_fields: [detail*]
   }
 
+  set: ALL_FIELDS {
+    fields:
+    [test_measure]
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-	id,
-	first_name,
-	last_name,
-	events.count,
-	orders.count,
-	saralooker.count,
-	sindhu.count,
-	user_data.count
-	]
+  id,
+  first_name,
+  last_name,
+  events.count,
+  orders.count,
+  saralooker.count,
+  sindhu.count,
+  user_data.count
+  ]
   }
 
 }
