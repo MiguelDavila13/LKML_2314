@@ -147,6 +147,12 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+
+  join: test_derivedtable {
+    type: left_outer
+    sql_on: ${users.city} = ${test_derivedtable.city} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: order_items_vijaya {
