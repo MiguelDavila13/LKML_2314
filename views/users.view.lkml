@@ -48,6 +48,7 @@ view: users {
 
   dimension: city {
     type: string
+    suggest_persist_for: "0 seconds"
     sql: ${TABLE}.city ;;
   }
 
