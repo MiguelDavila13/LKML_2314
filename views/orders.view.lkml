@@ -1,9 +1,13 @@
 # The name of this view in Looker is "Orders"
+include: "/views/order_items.view.lkml"
+include: "/views/inventory_items.view.lkml"
+
 view: orders {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
   sql_table_name: demo_db.orders ;;
   drill_fields: [id]
+  extends: [order_items, inventory_items]
 
   # This primary key is the unique key for this table in the underlying database.
   # You need to define a primary key in a view in order to join to other views.
@@ -93,6 +97,28 @@ view: orders {
   measure: count_cancelled {
     type: number
     sql: COUNT(IF(${status} = "CANCELLED", ${id},0)) ;;
+  }
+
+  parameter: code {
+    type: string
+    allowed_value: {
+      label: "SM"
+      value: "A"
+    }
+    allowed_value: {
+      label: "OM"
+      value: "B"
+    }
+  }
+
+  dimension: gross_margin {
+    label: "{% if code._parameter_value == 'A' %} Standard Margin
+    {% elsif code._parameter_value== 'B' %} Operating Margin
+    {% else %} Gross Margin
+    {% endif %}"
+    type: number
+    value_format_name: usd
+    sql: ${sale_price} *1 ;;
   }
 
   measure: count_cancelled_status {
