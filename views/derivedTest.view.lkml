@@ -1,18 +1,24 @@
-# The name of this view in Looker is "Flights"
-view: flights {
-  # The sql_table_name parameter indicates the underlying database table
-  # to be used for all fields in this view.
-  sql_table_name: demo_db.flights ;;
+view: derivedtest {
+#   # Or, you could make this view a derived table, like this:
+   derived_table: {
+     sql: SELECT
+         *
+       FROM demo_db.flights as flights
+       WHERE flight_num = (flight_num)
+       ;;
+      sql_trigger_value: 1 ;;
+      indexes: ["flight_num"]
+   }
 
-  # No primary key is defined for this view. In order to join this view in an Explore,
-  # define primary_key: yes on a dimension that has no repeated values.
+  parameter: param_test {
+    type: string
 
-    # Here's what a typical dimension looks like in LookML.
-    # A dimension is a groupable field that can be used to filter query results.
-    # This dimension will be called "Arr Delay" in Explore.
+  suggestions: ["test1","test2"]
+  }
 
   dimension: arr_delay {
     type: number
+
     sql: ${TABLE}.arr_delay ;;
   }
 
@@ -31,6 +37,7 @@ view: flights {
 
   dimension_group: arr {
     type: time
+    datatype: timestamp
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.arr_time ;;
     allow_fill: yes
@@ -57,6 +64,7 @@ view: flights {
 
   dimension_group: dep {
     type: time
+    datatype: date
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.dep_time ;;
   }
