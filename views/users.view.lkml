@@ -65,6 +65,22 @@ view: users {
     type: string
     suggest_persist_for: "0 seconds"
     sql: ${TABLE}.city ;;
+
+    #link: {
+    #  label: "Link to PDF"
+    #  url: "http://www.google.com/search?q={{users.state}}"
+    #  icon_url: "http://google.com/favicon.ico"
+    #}
+
+  }
+
+  dimension: pdf_name {
+    type: string
+    sql: ${TABLE}.pdf_name ;;
+    #link: {
+    #  label: "Link to PDF"
+    #  url: "{{HERE_YOUR_VIEW.pdf_link}}"
+    #}
   }
 
   dimension: test_field {
@@ -121,7 +137,11 @@ view: users {
     type: number
     value_format_name: usd_0
     sql: CASE
-        WHEN ${created_fiscal_quarter} = "FY2015-Q4" THEN 10
+        WHEN ${created_fiscal_quarter} =
+        (DATE_FORMAT(TIMESTAMP(CONCAT(CAST(YEAR(DATE_ADD(TIMESTAMP(DATE_FORMAT(users.created_at ,'%Y-%m-01')),
+        INTERVAL -1 month)) AS CHAR), '-',
+        LPAD(CAST(((QUARTER(DATE_ADD(TIMESTAMP(DATE_FORMAT(users.created_at ,'%Y-%m-01')),
+        INTERVAL -1 month)) - 1) * 3) + 1 AS CHAR), 2, '0'), '-01')),'%Y-%m')) THEN 10
         ElSE 0 END;;
   }
 
