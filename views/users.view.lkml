@@ -22,6 +22,21 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  measure: maxtest {
+    type: string
+    sql: MAX(${TABLE}.city) ;;
+  }
+
+  measure: nomaxtest {
+    type: string
+    sql: ${TABLE}.city ;;
+  }
+
+  measure: maxdate {
+    type: date
+    sql: MAX(${created_raw}) ;;
+  }
+
   dimension: test {
     case: {
       when: {
@@ -50,6 +65,22 @@ view: users {
     type: string
     suggest_persist_for: "0 seconds"
     sql: ${TABLE}.city ;;
+
+    #link: {
+    #  label: "Link to PDF"
+    #  url: "http://www.google.com/search?q={{users.state}}"
+    #  icon_url: "http://google.com/favicon.ico"
+    #}
+
+  }
+
+  dimension: pdf_name {
+    type: string
+    sql: ${TABLE}.pdf_name ;;
+    #link: {
+    #  label: "Link to PDF"
+    #  url: "{{HERE_YOUR_VIEW.pdf_link}}"
+    #}
   }
 
   dimension: test_field {
@@ -72,7 +103,7 @@ view: users {
 
   dimension_group: created {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, quarter, year, fiscal_quarter]
     sql: ${TABLE}.created_at ;;
   }
 
@@ -98,8 +129,21 @@ view: users {
 
   dimension: state {
     type: string
+    map_layer_name: us_states
     sql: ${TABLE}.state ;;
     map_layer_name: us_states
+  }
+
+  dimension: testQuarter {
+    type: number
+    value_format_name: usd_0
+    sql: CASE
+        WHEN ${created_fiscal_quarter} =
+        (DATE_FORMAT(TIMESTAMP(CONCAT(CAST(YEAR(DATE_ADD(TIMESTAMP(DATE_FORMAT(users.created_at ,'%Y-%m-01')),
+        INTERVAL -1 month)) AS CHAR), '-',
+        LPAD(CAST(((QUARTER(DATE_ADD(TIMESTAMP(DATE_FORMAT(users.created_at ,'%Y-%m-01')),
+        INTERVAL -1 month)) - 1) * 3) + 1 AS CHAR), 2, '0'), '-01')),'%Y-%m')) THEN 10
+        ElSE 0 END;;
   }
 
   dimension: zip {
@@ -108,7 +152,19 @@ view: users {
   }
   measure: count {
     type: count
-    drill_fields: [detail*]
+    drill_fields: [test3*]
+  }
+
+  set: test1 {
+    fields: [id,last_name]
+  }
+
+  set: tes2 {
+    fields: [first_name, city]
+  }
+
+  set: test3 {
+    fields: [test1*, state, tes2*]
   }
 
   set: ALL_FIELDS {
@@ -120,8 +176,9 @@ view: users {
   set: detail {
     fields: [
   id,
-  first_name,
   last_name,
+  count,
+  first_name,
   events.count,
   orders.count,
   saralooker.count,
