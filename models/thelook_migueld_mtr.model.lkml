@@ -89,19 +89,18 @@ explore: hundred_million_orders {
   }
 }
 
-explore: hundred_million_orders_wide {
-  join: orders {
-    type: left_outer
-    sql_on: ${hundred_million_orders_wide.order_id} = ${orders.id} ;;
-    relationship: many_to_one
-  }
-
-  join: users {
-    type: left_outer
-    sql_on: ${orders.user_id} = ${users.id} ;;
-    relationship: many_to_one
-  }
-}
+#explore: hundred_million_orders_wide {
+#  join: orders {
+#  sql_on: ${hundred_million_orders_wide.order_id} = ${orders.id} ;;
+#    relationship: many_to_one
+#  }
+#
+#  join: users {
+#    type: left_outer
+#    sql_on: ${orders.user_id} = ${users.id} ;;
+#    relationship: many_to_one
+#  }
+#}
 
 explore: incremental_pdts_test {}
 
