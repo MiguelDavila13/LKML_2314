@@ -51,9 +51,49 @@ view: orders {
     # A dimension is a groupable field that can be used to filter query results.
     # This dimension will be called "Status" in Explore.
 
+  #measure: female_attrition_rate_YTD
+  #{
+  #  type: number
+  #  group_label: "9: Inclusion Current (YTD)"
+  ##  group_item_label: "Female Attrition Rate YTD"
+  #  value_format_name: percent_1
+  #  sql: SAFE_DIVIDE(${female_YTD_nb_terminations},${female_avg_headcount_YTD}) ;;
+  #  html:
+  #  {% if value > male_attrition_rate_YTD._value %}
+  #  <p style="color: green; font-size: 100%">{{ rendered_value }}</p>
+  #  {% else %}
+  #  <p style="color: brown; font-size:100%">{{ rendered_value }}</p>
+  #  {% endif %};;
+  #  drill_fields: [male_attrition_rate_YTD]
+  #}
+
+  measure: test_Compare {
+    type: number
+    value_format_name: percent_1
+    sql: 3176 ;;
+    html:
+    {% if value > orders.count_test._value %}
+      <p style="color: black; background-color: lightgreen;">{{ value }}</p>
+    {% elsif value == orders.count_test._value %}
+      <p style="color: black; background-color: orange;">{{ value }}</p>
+    {% else %}
+      <p style="color: white; background-color: red;">{{ value }}</p>
+    {% endif %} ;;
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
+    html:
+    {% if value == 'COMPLETED' %}
+      <p style="color: black; background-color: lightgreen;">{{ value }}</p>
+    {% elsif value == 'PENDING' %}
+      <p style="color: black; background-color: orange;">{{ value }}</p>
+    {% else %}
+      <p style="color: white; background-color: red;">{{ value }}</p>
+    {% endif %}
+  ;;
+    description: "The current status of an existing order."
   }
 
   dimension: user_id {
