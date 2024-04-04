@@ -9,7 +9,7 @@ include: "/views/**/*.view.lkml"
 # use the Quick Help panel on the right to see documentation.
 
 datagroup: thelook_migueld_mtr_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
+  sql_trigger: SELECT EXTRACT(day from CURRENT_DATE()) ;;
   max_cache_age: "1 hour"
 }
 
