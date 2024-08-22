@@ -46,8 +46,6 @@ explore: connection_reg_r3 {}
 
 explore: dept {}
 
-explore: derivedtest{}
-
 explore: employees {}
 
 explore: events {

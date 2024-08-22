@@ -131,7 +131,7 @@ view: users {
     type: string
     map_layer_name: us_states
     sql: ${TABLE}.state ;;
-    map_layer_name: us_states
+    #: us_states
   }
 
   dimension: testQuarter {
