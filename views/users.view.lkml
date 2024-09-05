@@ -158,7 +158,7 @@ view: users {
   dimension: testLocation {
     type: location
     sql_latitude: 50  ;;
-    sql_longitude: ${TABLE}.age  ;;
+    sql_longitude: ${TABLE}.age * -1  ;;
   }
 
   set: test1 {
