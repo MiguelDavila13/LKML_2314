@@ -24,6 +24,8 @@ fiscal_month_offset: 1
 
 # To see the Explore you’re building, navigate to the Explore menu and select an Explore under "Thelook Migueld Mtr"
 
+explore: sql {}
+
 explore: billion_orders {
   join: orders {
     type: left_outer
