@@ -155,6 +155,12 @@ view: users {
     drill_fields: [test3*]
   }
 
+  dimension: testLocation {
+    type: location
+    sql_latitude: 50  ;;
+    sql_longitude: ${TABLE}.age  ;;
+  }
+
   set: test1 {
     fields: [id,last_name]
   }
