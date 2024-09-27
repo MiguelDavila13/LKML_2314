@@ -240,9 +240,9 @@ explore: test {}
 explore: test_space_in_column_name {}
 
 explore: users {
-  always_filter: {
-    filters: {field: users.test}
-  }
+  #always_filter: {
+  #  filters: {field: users.test}
+  #}
 }
 
 explore: user_data {
