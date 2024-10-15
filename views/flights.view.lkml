@@ -31,9 +31,13 @@ view: flights {
 
   dimension_group: arr {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, minute, date, week, month, quarter, year]
     sql: ${TABLE}.arr_time ;;
     allow_fill: yes
+  }
+
+  dimension_group: timestamp_test{
+    type: time
   }
 
   dimension: cancelled {
