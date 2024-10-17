@@ -242,9 +242,10 @@ explore: test {}
 explore: test_space_in_column_name {}
 
 explore: users {
-  #always_filter: {
-  #  filters: {field: users.test}
-  #}
+  conditionally_filter: {
+    filters: [ users.created_date: "30 days"]
+    unless: [state]
+  }
 }
 
 explore: user_data {
