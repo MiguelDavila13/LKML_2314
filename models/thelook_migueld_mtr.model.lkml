@@ -246,6 +246,10 @@ explore: users {
     filters: [ users.created_date: "30 days"]
     unless: [state]
   }
+  access_filter: {
+    field: users.country
+    user_attribute: test_filter
+  }
 }
 
 explore: user_data {
