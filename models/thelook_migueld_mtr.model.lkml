@@ -4,6 +4,7 @@ connection: "thelook"
 
 # include all the views
 include: "/views/**/*.view.lkml"
+include: "/views/**/*.dashboard.lookml"
 
 # Datagroups define a caching policy for an Explore. To learn more,
 # use the Quick Help panel on the right to see documentation.
@@ -246,10 +247,10 @@ explore: users {
     filters: [ users.created_date: "30 days"]
     unless: [state]
   }
-  access_filter: {
-    field: users.country
-    user_attribute: test_filter
-  }
+  #access_filter: {
+  #  field: users.country
+  #  user_attribute: test_filter
+  #}
 }
 
 explore: user_data {
