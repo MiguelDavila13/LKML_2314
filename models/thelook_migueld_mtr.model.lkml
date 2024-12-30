@@ -87,10 +87,6 @@ explore: flights {}
 explore: human {}
 
 explore: hundred_million_orders {
-  access_filter: {
-    field: users.last_name
-    user_attribute: dept
-  }
   join: orders {
     type: left_outer
     sql_on: ${hundred_million_orders.order_id} = ${orders.id} ;;
@@ -261,6 +257,10 @@ explore: users {
   #  field: users.country
   #  user_attribute: test_filter
   #}
+  access_filter: {
+    field: users.last_name
+    user_attribute: dept
+  }
 }
 
 explore: user_data {
