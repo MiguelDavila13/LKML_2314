@@ -25,6 +25,11 @@ fiscal_month_offset: 1
 
 # To see the Explore you’re building, navigate to the Explore menu and select an Explore under "Thelook Migueld Mtr"
 
+access_grant: testing_restriction {
+  user_attribute: dept
+  allowed_values: ["HR"]
+}
+
 explore: sql {}
 
 explore: billion_orders {
@@ -92,6 +97,7 @@ explore: hundred_million_orders {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
+    required_access_grants: [testing_restriction]
   }
 }
 
@@ -243,10 +249,10 @@ explore: test {}
 explore: test_space_in_column_name {}
 
 explore: users {
-  conditionally_filter: {
-    filters: [ users.created_date: "30 days"]
-    unless: [state]
-  }
+  #conditionally_filter: {
+  #  filters: [ users.created_date: "30 days"]
+  #  unless: [state]
+  #}
   #access_filter: {
   #  field: users.country
   #  user_attribute: test_filter

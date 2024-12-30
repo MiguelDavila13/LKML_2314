@@ -19,6 +19,7 @@ view: users {
 
   dimension: age {
     type: number
+    required_access_grants: [testing_restriction]
     sql: ${TABLE}.age ;;
   }
 
@@ -35,6 +36,11 @@ view: users {
   measure: maxdate {
     type: date
     sql: MAX(${created_raw}) ;;
+  }
+
+  measure: all_results {
+    type: percent_of_total
+    sql: ${age} ;;
   }
 
   dimension: test {
