@@ -261,6 +261,7 @@ explore: users {
     field: users.last_name
     user_attribute: dept
   }
+  required_access_grants: [testing_restriction]
 }
 
 explore: user_data {
