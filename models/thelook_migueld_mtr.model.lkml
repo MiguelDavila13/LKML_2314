@@ -257,10 +257,10 @@ explore: users {
   #  field: users.country
   #  user_attribute: test_filter
   #}
-  access_filter: {
-    field: users.last_name
-    user_attribute: dept
-  }
+  #access_filter: {
+  #  field: users.last_name
+  #  user_attribute: dept
+  #}
   required_access_grants: [testing_restriction]
 }
 
