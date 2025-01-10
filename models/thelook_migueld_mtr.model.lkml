@@ -82,7 +82,12 @@ explore: fakeorders {
 
 explore: fatal_error_user_derived_base {}
 
-explore: flights {}
+explore: flights {
+  access_filter: {
+    field: destination
+    user_attribute: dept
+  }
+}
 
 explore: human {}
 
