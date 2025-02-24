@@ -83,9 +83,8 @@ explore: fakeorders {
 explore: fatal_error_user_derived_base {}
 
 explore: flights {
-  access_filter: {
-    field: destination
-    user_attribute: dept
+  always_filter: {
+    filters: [flights.destination: "-NULL"]
   }
 }
 
