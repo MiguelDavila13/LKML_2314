@@ -25,10 +25,10 @@ fiscal_month_offset: 1
 
 # To see the Explore you’re building, navigate to the Explore menu and select an Explore under "Thelook Migueld Mtr"
 
-access_grant: testing_restriction {
-  user_attribute: dept
-  allowed_values: ["HR"]
-}
+#access_grant: testing_restriction {
+#  user_attribute: dept
+#  allowed_values: ["HR"]
+#}
 
 explore: sql {}
 
@@ -265,7 +265,7 @@ explore: users {
   #  field: users.last_name
   #  user_attribute: dept
   #}
-  required_access_grants: [testing_restriction]
+  #required_access_grants: [testing_restriction]
 }
 
 explore: user_data {
