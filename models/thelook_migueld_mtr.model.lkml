@@ -31,6 +31,7 @@ fiscal_month_offset: 1
 #}
 
 explore: sql {}
+#testing second instance
 
 explore: billion_orders {
   join: orders {
