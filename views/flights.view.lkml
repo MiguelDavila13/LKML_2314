@@ -53,6 +53,7 @@ view: flights {
   }
 
   dimension: carrier {
+    label: "  Region Name"
     type: string
     sql: ${TABLE}.carrier ;;
     link: {
@@ -73,6 +74,7 @@ view: flights {
   }
 
   dimension: destination {
+    label: "SIC"
     type: string
     sql: ${TABLE}.destination ;;
   }
@@ -88,6 +90,7 @@ view: flights {
   }
 
   dimension: flight_num {
+    label: " Division Name"
     type: string
     sql: ${TABLE}.flight_num ;;
   }
