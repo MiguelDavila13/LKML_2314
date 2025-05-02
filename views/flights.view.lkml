@@ -16,6 +16,11 @@ view: flights {
     sql: ${TABLE}.arr_delay ;;
   }
 
+  measure: tooltip_test {
+    type: count
+    html: <span title="test">{{rendered_value}}</span> ;;
+  }
+
   #testing
 
   # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
