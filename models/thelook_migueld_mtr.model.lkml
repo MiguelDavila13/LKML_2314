@@ -47,6 +47,7 @@ explore: billion_orders {
     relationship: many_to_one
   }
 }
+#testing commit log rows
 
 # To create more sophisticated Explores that involve multiple views, you can use the join parameter.
 # Typically, join parameters require that you define the join type, join relationship, and a sql_on clause.
