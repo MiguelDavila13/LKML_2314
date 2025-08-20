@@ -53,13 +53,13 @@ view: flights {
   }
 
   dimension: carrier {
-    label: "  Region Name"
+    #label: "  Region Name"
     type: string
     sql: ${TABLE}.carrier ;;
-    link: {
-      label: "testing down"
-      url: "https://gcpl2314.cloud.looker.com/browse"
-    }
+    #link: {
+    #  label: "testing down"
+    #  url: "https://gcpl2314.cloud.looker.com/browse"
+    #}
   }
 
   dimension: dep_delay {
@@ -74,7 +74,7 @@ view: flights {
   }
 
   dimension: destination {
-    label: "SIC"
+    #label: "SIC"
     type: string
     sql: ${TABLE}.destination ;;
   }
@@ -90,7 +90,7 @@ view: flights {
   }
 
   dimension: flight_num {
-    label: " Division Name"
+    #label: " Division Name"
     type: string
     sql: ${TABLE}.flight_num ;;
   }
