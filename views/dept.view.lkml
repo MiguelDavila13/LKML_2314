@@ -12,17 +12,19 @@ view: dept {
     primary_key: yes
     type: number
     sql: ${TABLE}.DeptID ;;
+
   }
     # Here's what a typical dimension looks like in LookML.
     # A dimension is a groupable field that can be used to filter query results.
     # This dimension will be called "Dept Name" in Explore.
 
-  dimension: dept_name {
+  dimension: js_deptname {
     type: string
-    sql: ${TABLE}.DeptName ;;
+    sql: ${TABLE}.js_deptname ;;
+
   }
   measure: count {
     type: count
-    drill_fields: [dept_id, dept_name, salary.count]
+    filters: [js_deptname: "-NULL"]
   }
 }
