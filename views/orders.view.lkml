@@ -175,6 +175,20 @@ view: orders {
     type: count_distinct
     sql: IF(${status} = "PENDING", ${id}, null) ;;
   }
+  measure: last_declaration_time {
+
+    label: "last_declaration_time"
+
+    description: "last_declaration_time_description"
+
+    type: date
+
+    sql: max(${TABLE}.created_at);;
+
+    html: {{ rendered_value | date: _user_attributes['asdfghjkl']
+      }};;
+
+  }
 
   # ----- Sets of fields for drilling ------
   set: detail {
