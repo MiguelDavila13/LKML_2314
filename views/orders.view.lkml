@@ -181,7 +181,7 @@ view: orders {
 
     description: "last_declaration_time_description"
 
-    type: date
+    type: string
 
     sql: max(${TABLE}.created_at);;
 
