@@ -118,8 +118,10 @@ view: order_items {
   }
 
   dimension: sale_price {
+    label: "Total Phased EPI GBP"
     type: number
     sql: ${TABLE}.sale_price ;;
+   value_format_name: gbp_0
   }
 
   # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
