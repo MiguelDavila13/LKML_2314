@@ -126,7 +126,7 @@
   - name: Flight Time
     title: Flight Time
     type: field_filter
-    default_value: "<20"
+    default_value: '1.20'
     allow_multiple_values: true
     required: false
     ui_config:
