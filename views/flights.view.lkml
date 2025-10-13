@@ -43,9 +43,9 @@ view: flights {
     allow_fill: yes
   }
 
-  dimension_group: timestamp_test{
-    type: time
-  }
+  #dimension_group: timestamp_test{
+  #  type: time
+  #}
 
   dimension: cancelled {
     type: string
