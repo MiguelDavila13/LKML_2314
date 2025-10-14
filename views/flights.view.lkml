@@ -56,6 +56,7 @@ view: flights {
     #label: "  Region Name"
     type: string
     sql: ${TABLE}.carrier ;;
+    drill_fields: [details*]
     #link: {
     #  label: "testing down"
     #  url: "https://gcpl2314.cloud.looker.com/browse"
@@ -140,4 +141,9 @@ view: flights {
     value_format: "0.0\%"
     sql: ${flight_time};;
   }
+
+  set: details {
+    fields: [flight_num, carrier, arr_date]
+  }
+
 }
