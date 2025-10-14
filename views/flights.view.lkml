@@ -82,6 +82,7 @@ view: flights {
   dimension: distance {
     type: number
     sql: ${TABLE}.distance ;;
+    description: "Filter by this to improve the query"
   }
 
   dimension: diverted {
