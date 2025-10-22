@@ -32,6 +32,7 @@ view: flights {
     sql: ${arr_delay} ;;  }
   measure: average_arr_delay {
     type: average
+    value_format: "0.0000000000000000000"
     sql: ${arr_delay} ;;  }
   # Dates and timestamps can be represented in Looker using a dimension group of type: time.
   # Looker converts dates and timestamps to the specified timeframes within the dimension group.
