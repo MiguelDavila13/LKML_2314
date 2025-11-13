@@ -37,7 +37,7 @@ view: order_items {
 
   dimension: phones {
     type: string
-    sql: ${TABLE}.phones ;;
+    sql: ${TABLE}.phones;;
   }
   # Dates and timestamps can be represented in Looker using a dimension group of type: time.
   # Looker converts dates and timestamps to the specified timeframes within the dimension group.
@@ -46,6 +46,20 @@ view: order_items {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.returned_at ;;
+
+  }
+
+  dimension: date_testing{
+    type: string
+    # sql: ${returned_date}} ;;
+    order_by_field: returned_week
+    sql: CONCAT('w/e ',${returned_week}) ;;
+  }
+
+  dimension: date_testing2 {
+    type: string
+    order_by_field: returned_week
+    sql: DATE_FORMAT(${returned_week}, '%d-%m-%Y') ;;
   }
 
   dimension_group: created {
