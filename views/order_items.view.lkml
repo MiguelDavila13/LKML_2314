@@ -49,11 +49,18 @@ view: order_items {
 
   }
 
+  dimension: date {
+    type: date
+    datatype: date
+    allow_fill: yes
+    sql: ${TABLE}.returned_at ;;
+  }
+
   dimension: date_testing{
     type: string
     # sql: ${returned_date}} ;;
-    order_by_field: returned_week
-    sql: CONCAT('w/e ',${returned_week}) ;;
+    order_by_field: date
+    sql: CONCAT('w/e ',${date_testing2}) ;;
   }
 
   dimension: date_testing2 {
