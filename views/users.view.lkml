@@ -110,8 +110,13 @@ view: users {
 
   dimension_group: created {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year, fiscal_quarter]
+    timeframes: [raw, time, date, week, month, quarter, year, fiscal_quarter, month_num]
     sql: ${TABLE}.created_at ;;
+  }
+
+  dimension: num{
+    type:number
+    sql:EXTRACT(MONTH FROM ${created_raw}) ;;
   }
 
   dimension: email {

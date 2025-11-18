@@ -1,4 +1,5 @@
 project_name: "thelook_migueld_mtr"
+new_lookml_runtime: yes
 visualization: {
   id: "cartoon-marketplace-dev"
   label: "cartoon Viz"
