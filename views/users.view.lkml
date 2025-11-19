@@ -109,10 +109,17 @@ view: users {
   # Looker converts dates and timestamps to the specified timeframes within the dimension group.
 
   dimension_group: created {
+    allow_fill: yes
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year, fiscal_quarter]
+    timeframes: [raw, time, date, week, month, quarter, year, fiscal_quarter, month_num]
     sql: ${TABLE}.created_at ;;
   }
+
+  # dimension: num{
+  #   allow_fill: yes
+  #   type:number
+  #   sql:EXTRACT(MONTH FROM ${created_raw}) ;;
+  # }
 
   dimension: email {
     type: string
