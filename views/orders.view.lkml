@@ -185,8 +185,8 @@ view: orders {
 
     sql: max(${TABLE}.created_at);;
 
-    html: {{ rendered_value | date: _user_attributes['asdfghjkl']
-      }};;
+    #html: {{ rendered_value | date: _user_attributes['asdfghjkl']
+    #  }};;
 
   }
 
