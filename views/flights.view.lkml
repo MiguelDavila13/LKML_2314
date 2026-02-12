@@ -38,9 +38,10 @@ view: flights {
 
   dimension_group: arr {
     type: time
-    timeframes: [raw, time, minute, date, week, month, quarter, year]
+    timeframes: [time, month, year]
+    datatype: timestamp
     sql: ${TABLE}.arr_time ;;
-    allow_fill: yes
+    #allow_fill: yes
   }
 
   #dimension_group: timestamp_test{
@@ -143,7 +144,7 @@ view: flights {
   }
 
   set: details {
-    fields: [flight_num, carrier, arr_date]
+    fields: [flight_num, carrier, arr_time]
   }
 
 }
