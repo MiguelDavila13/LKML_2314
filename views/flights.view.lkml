@@ -44,9 +44,10 @@ view: flights {
     #allow_fill: yes
   }
 
-  #dimension_group: timestamp_test{
-  #  type: time
-  #}
+  dimension: set {
+    type: string
+    sql: "SELECT state, COUNT(DISTINCT code) as airports_in_state_count FROM faa.airports GROUP BY 1 ORDER BY 1" ;;
+  }
 
   dimension: cancelled {
     type: string
@@ -130,10 +131,6 @@ view: flights {
   measure: count {
     type: count
   }
-
-  #measure: testing_total{
-  #
-  #}
 
   measure: percent_of_total_advanced_movements {
     label: "Percent of total advanced movements"
