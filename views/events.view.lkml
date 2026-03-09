@@ -9,6 +9,7 @@ view: events {
   # You need to define a primary key in a view in order to join to other views.
 
   dimension: id {
+    label: "id"
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
