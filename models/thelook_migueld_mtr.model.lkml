@@ -1,6 +1,6 @@
 # Define the database connection to be used for this model.
 connection: "thelook"
-#testing
+#testing webhooks
 
 # include all the views
 include: "/views/**/*.view.lkml"
