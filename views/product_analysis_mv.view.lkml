@@ -9,7 +9,7 @@ view: product_analysis_mv {
   }
 
   #size was changed for destination
-  dimension: destination {
+  dimension: size {
     type: string
     sql: ${TABLE}.destination ;;
   }
