@@ -19,14 +19,14 @@ explore: product_analysis_mv {
     # this is a unique list per organization
     sql_on: 1=1
             {% if product_analysis_mv.carrier._in_query -%} and ${product_analysis_mv.carrier}=${sold_measures.carrier} {% endif %}
-            {% if product_analysis_mv.destination._in_query -%} and ${product_analysis_mv.destination}=${sold_measures.destination} {% endif %}
+            {% if product_analysis_mv.size._in_query -%} and ${product_analysis_mv.size}=${sold_measures.destination} {% endif %}
             ;;
   }
 }
 
 view: +product_analysis_mv {
   dimension: carrier { hidden: no label: "Carrier"}
-  dimension: destination { hidden: no label: "Destination"}
+  dimension: size { hidden: no}
 }
 
 view: +sold_measures {
@@ -34,13 +34,12 @@ view: +sold_measures {
     sql:  select  uuid_string() as pk,
                     order_date
                   {%- if product_analysis_mv.carrier._in_query -%} , carrier {%- endif -%}
-                  {%- if product_analysis_mv.destination._in_query -%} , destination {%- endif -%}
+                  {%- if product_analysis_mv.size._in_query -%} , destination {%- endif -%}
                   , sum(items_sold) as sum_items_sold
           from    "demo_db.flights"
           group by  2
                   {%- if product_analysis_mv.carrier._in_query -%} , carrier {%- endif -%}
-                  {%- if product_analysis_mv.destination._in_query -%} , destination {%- endif -%}
-                  {%- if  -%} , carrier {%- endif -%}
+                  {%- if product_analysis_mv.size._in_query -%} , destination {%- endif -%}
                   ;;
   }
   dimension: pk {
