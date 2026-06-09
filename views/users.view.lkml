@@ -69,16 +69,15 @@ view: users {
     type: average
     sql: ${age} ;;
     value_format: "0.00%"
-
     html:
 
-    {% if users.average_age._value > 0.00 %}
+    {% if users.average_age._value >= 60.00 %}
 
     <div style = "color: white; background-color: green; font-size:120%; font-weight: bold">{{ rendered_value }}</div>
 
 
 
-    {% elsif users.average_age._value < 0.00 %}
+    {% elsif users.average_age._value > 40.00 %}
 
     <div style = "color: white; background-color: red; font-size:120%; font-weight: bold">{{ rendered_value }}</div>
 
