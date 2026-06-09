@@ -64,9 +64,33 @@ view: users {
   measure: total_age {
     type: sum
     sql: ${age} ;;  }
+
   measure: average_age {
     type: average
-    sql: ${age} ;;  }
+    sql: ${age} ;;
+
+    html:
+
+    {% if users.average_age._value > 0.00 %}
+
+    <div style = "color: white; background-color: green; font-size:120%; font-weight: bold">{{ rendered_value }}</div>
+
+
+
+    {% elsif users.average_age._value < 0.00 %}
+
+    <div style = "color: white; background-color: red; font-size:120%; font-weight: bold">{{ rendered_value }}</div>
+
+
+
+    {% else %}
+
+    <p style="color: black; background-color: ; font-size:100%; text-align:right">{{ rendered_value }}</p>
+
+    {% endif %}
+
+    ;;
+    }
 
   dimension: city {
     type: string
