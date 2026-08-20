@@ -4,6 +4,18 @@
   layout: newspaper
   preferred_viewer: dashboards-next
   preferred_slug: QQkF8B1DvriXZVuMqqc71S
+  filters_location_top: false
+
+  filters:
+  - name: District
+    title: District
+    type: string_filter
+    default_value: ''
+    # allows_multiple_values: true
+    required: false
+    ui_config:
+      type: advanced
+      display: popover
   elements:
   - title: testing schedule
     name: testing schedule

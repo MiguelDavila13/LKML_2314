@@ -16,6 +16,45 @@ view: flights {
     sql: ${TABLE}.arr_delay ;;
   }
 
+  parameter: dimensions_parameter {
+    label: "Select Dimension"
+    view_label: "Braze Dimension"
+    type: string
+    allowed_value: {label: "Channel" value: "channel"}
+    allowed_value: {label: "Audience" value: "audience"}
+    allowed_value: {label: "Creative Type" value: "creativetype"}
+    allowed_value: {label: "Creative" value: "creative"}
+    allowed_value: {label: "Campaign Name" value: "campaignname"}
+  }
+
+  dimension: dashboard_buttons_delivery {
+    label: "Button Dim Delivery"
+    view_label: "Button Dashboard"
+    type: string
+    sql: "button dimension delivery" ;;
+    html:
+      {%- assign dim_raw = dimensions_parameter._parameter_value | remove: "'" | remove: '"' | remove: "%27" | strip -%}
+
+      {% if dim_raw == blank %}{% assign dim_raw = _filters['flights.dimensions_parameter'] | remove: "'" | remove: '"' | strip %}{% endif %}
+
+      {% if dim_raw == 'channel' %}{% assign dim_link = 'channel' %}
+      {% elsif dim_raw == 'audience' %}{% assign dim_link = 'audience' %}
+      {% elsif dim_raw == 'creativetype' %}{% assign dim_link = 'creativetype' %}
+      {% elsif dim_raw == 'creative' %}{% assign dim_link = 'creative' %}
+      {% elsif dim_raw == 'campaignname' %}{% assign dim_link = 'campaignname' %}
+      {% else %}{% assign dim_link = dim_raw %}
+      {% endif %}
+
+      <div style="display: flex; gap: 10px; padding: 10px 0; flex-wrap: wrap;">
+      <a href="/dashboards/jpsOcExyezXRbZgU4fpctZ?tab_name=Delivery&Messages+Sent=%3E%3D200&Select+Dimension={{ dim_link }}"style="padding: 6px 16px; border-radius: 6px; text-decoration: none; border: 1px solid #d1d5db; background-color: white; color: #4B5563;">Message Sent</a>
+
+      <a href="/dashboards/jpsOcExyezXRbZgU4fpctZ?tab_name=Delivery&Messages+Sent=%3E%3D200&Select+Dimension={{ dim_link }}"style="padding: 6px 16px; border-radius: 6px; text-decoration: none; border: 1px solid #d1d5db; background-color: white; color: #4B5563;">Open Rate %</a>
+
+      <a href="/dashboards/jpsOcExyezXRbZgU4fpctZ?tab_name=Delivery&Messages+Sent=%3E%3D200&Select+Dimension={{ dim_link }}"style="padding: 6px 16px; border-radius: 6px; text-decoration: none; border: 1px solid #d1d5db; background-color: white; color: #4B5563;">CTR %</a>
+
+      ;;
+  }
+
   measure: tooltip_test {
     type: count
     html: <span title="test">{{rendered_value}}</span> ;;
