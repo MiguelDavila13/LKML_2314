@@ -30,6 +30,11 @@ view: flights {
   measure: total_arr_delay {
     type: sum
     sql: ${arr_delay} ;;  }
+
+  measure: sum_arr_delay {
+    type: sum
+    sql: ${arr_delay} ;;  }
+
   measure: average_arr_delay {
     type: average
     sql: ${arr_delay} ;;  }
@@ -72,7 +77,7 @@ view: flights {
 
   dimension_group: dep {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, day_of_week, week, month, quarter, year]
     sql: ${TABLE}.dep_time ;;
   }
 
