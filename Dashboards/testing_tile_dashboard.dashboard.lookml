@@ -9,10 +9,13 @@
   filters:
   - name: District
     title: District
+    # allows_multiple_values: true
     type: string_filter
     default_value: ''
-    # allows_multiple_values: true
     required: false
+    # model: thelook_migueld_mtr
+    # explore: flights
+    # field: flights.carrier
     ui_config:
       type: advanced
       display: popover
