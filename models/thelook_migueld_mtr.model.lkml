@@ -68,7 +68,7 @@ explore: events {
   }
   always_filter: {
     filters: [
-      events.test: "'AsIs'"
+      events.test: "AsIs"
     ]
   }
 }
