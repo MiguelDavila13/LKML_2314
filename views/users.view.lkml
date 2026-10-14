@@ -81,14 +81,14 @@ view: users {
 
   }
 
-  dimension: pdf_name {
-    type: string
-    sql: ${TABLE}.pdf_name ;;
+  #dimension: pdf_name {
+    #type: string
+    #sql: ${TABLE}.pdf_name ;;
     #link: {
     #  label: "Link to PDF"
     #  url: "{{HERE_YOUR_VIEW.pdf_link}}"
     #}
-  }
+  #}
 
   dimension: test_field {
     type: string
