@@ -170,11 +170,11 @@ explore: order_items {
     relationship: many_to_one
   }
 
-  join: test_derivedtable {
-    type: left_outer
-    sql_on: ${users.city} = ${test_derivedtable.city} ;;
-    relationship: many_to_one
-  }
+  #join: test_derivedtable {
+   # type: left_outer
+    #sql_on: ${users.city} = ${test_derivedtable.city} ;;
+    #relationship: many_to_one
+  #}
 }
 
 explore: order_items_vijaya {
