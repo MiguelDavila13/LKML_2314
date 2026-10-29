@@ -8,6 +8,7 @@ include: "/views/product_analysis_mv.view.lkml"
 
 # include: "/**/*.view.lkml"                 # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
+# include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
 
 explore: product_analysis_mv {
   label: "Product Analysis"
