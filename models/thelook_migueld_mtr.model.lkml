@@ -14,7 +14,7 @@ datagroup: thelook_migueld_mtr_default_datagroup {
   sql_trigger: SELECT EXTRACT(day from CURRENT_DATE()) ;;
   max_cache_age: "1 hour"
 }
-
+#
 persist_with: thelook_migueld_mtr_default_datagroup
 
 fiscal_month_offset: 1
