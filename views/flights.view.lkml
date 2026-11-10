@@ -20,6 +20,34 @@ view: flights {
   # measures for this dimension, but you can also add measures of many different aggregates.
   # Click on the type parameter to see all the options in the Quick Help panel on the right.
 
+  measure: distribution_share_change_ly {
+    type: number
+    view_label: "Metrics"
+    group_label: "Distribution"
+    #label: "{% if share_chart._parameter_value == \"'SHARE +/- LY'\" %}DIST SHARE +/- LY{% else %}Dist{% endif %}"
+    value_format_name: decimal_2
+    description: "The Change in Distribution Share this year compared to last year"
+    synonyms: ["Dist Share +/- LY", "Dist Share Change"]
+    ##sql: (${distribution_share}*100-${distribution_share_ly}*100);;
+    sql: ${dep_delay}-${arr_delay};;
+    ##sql: SAFE_DIVIDE(${distribution_share},${distribution_share_ly})-1;;
+
+  }
+
+  measure: perc_growth_dist_share{
+    type: number
+    view_label: "POB"
+    group_label: "Percent of Business"
+    label: "% GROW DIST SHARE"
+    value_format_name: decimal_1
+    description: "Indicates if Distribution Share compared to last year is greater than zero for a selected time period and displays the percent of business result."
+    sql: CASE
+          WHEN ${distribution_share_change_ly} > -0.05
+          THEN ${dep_delay}
+          ELSE NULL
+          END;;
+  }
+
   measure: total_arr_delay {
     type: sum
     sql: ${arr_delay} ;;  }
@@ -60,6 +88,14 @@ view: flights {
     type: string
     sql: ${TABLE}.carrier ;;
     drill_fields: [details*]
+    link: {
+      label: "testing link"
+      url: "/explore/thelook_migueld_mtr/flights?
+      fields=flights.flight_num,flights.carrier,flights.arr_time,flights.count
+      &f[flights.distance]=%3C50
+      &f[flights.carrier]=OO
+      &query_timezone=UTC&limit=500"
+    }
   }
 
   dimension: dep_delay {
@@ -136,7 +172,7 @@ view: flights {
   }
 
   set: details {
-    fields: [flight_num, carrier, arr_time]
+    fields: [flight_num, carrier, arr_time, count]
   }
 
 }
