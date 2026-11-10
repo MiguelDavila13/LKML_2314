@@ -92,7 +92,7 @@ explore: fakeorders {
 explore: fatal_error_user_derived_base {}
 
 explore: flights {
-  #sql_always_where: ${distance} = 50;;
+  sql_always_where: ${distance} < 50 ;;
 }
 
 explore: human {}
