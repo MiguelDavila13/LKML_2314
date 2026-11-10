@@ -7,6 +7,11 @@ view: events {
 
   # This primary key is the unique key for this table in the underlying database.
   # You need to define a primary key in a view in order to join to other views.
+  parameter: test {
+    type: string
+    allowed_value: {label: "As Is" value: "AsIs"}
+    allowed_value: {label: "As Was" value: "AsWas"}
+  }
 
   dimension: id {
     primary_key: yes
