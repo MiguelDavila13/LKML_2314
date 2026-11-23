@@ -1,0 +1,7 @@
+schema_version: 1
+ruleset_version: "all-v1.0"
+
+ignore_files:
+  - "*.dashboard.lookml"
+  - "*.dashboard.lkml"
+  - "dashboards/**"
