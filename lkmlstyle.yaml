@@ -4,5 +4,4 @@ ruleset_version: "all-v1.0"
 ignore_files:
   - "*.dashboard.lookml"
   - "*.dashboard.lkml"
-  - "dashboards/**"
-  - "*.view.lkml"
+  - "Dashboards/**"
