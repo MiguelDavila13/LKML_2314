@@ -5,3 +5,4 @@ ignore_files:
   - "*.dashboard.lookml"
   - "*.dashboard.lkml"
   - "Dashboards/**"
+  - "views/**"
