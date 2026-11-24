@@ -1,8 +1,160 @@
+# Looker CI Style Validator configuration.
+# Docs: https://docs.cloud.google.com/looker/docs/ci-style-validator
+#
+# Source of truth for what is enforced: docs/development_guidelines.md. If a rule is
+# not in the guidelines it is not enabled here. Where a built-in rule contradicts the
+# guidelines it is left out (ruleset "none" runs only the rules named below) and a
+# custom rule enforces the guideline instead.
+#
+# With "Only incremental errors" on in the Looker CI suite, only violations that are new
+# on the development branch are reported, so existing code does not block a PR.
 schema_version: 1
-ruleset_version: "all-v1.0"
+ruleset_version: "none"
 
+# The validator only reads .lkml and .lookml. Dashboards are not views or explores.
 ignore_files:
-  - "*.dashboard.lookml"
-  - "*.dashboard.lkml"
   - "Dashboards/**"
-  - "views/**"
+
+rules:
+  # --- Built-in rules that match the guidelines ---------------------------------------
+  # Views: "View should have a label attribute defined"
+  view-label-presence:
+    severity: error
+  # Views: lower snake case, named after the table
+  view-name-snake-case:
+    severity: error
+  # Dimensions/measures: lower snake case
+  dimension-name-snake-case:
+    severity: error
+  measure-name-snake-case:
+    severity: error
+  # Shared: "All dimensions/measures should have a description attribute defined"
+  visible-dimension-description-presence:
+    severity: error
+  visible-measure-description-presence:
+    severity: error
+  # Shared: numeric measures need value_format_name
+  numeric-measure-value-format-presence:
+    severity: error
+  # Measures: reference a dimension, never ${TABLE}.Column
+  measure-sql-table-reference:
+    severity: error
+  # Dimensions: "Use is_ or has_ for boolean / yesno dimensions"
+  boolean-dimension-name-prefix:
+    severity: error
+  # Measures: total_ prefix for sums, avg_ prefix for averages
+  sum-measure-name-prefix:
+    severity: error
+  average-measure-name-prefix:
+    severity: error
+  # Explores: label is the business process name
+  explore-label-presence:
+    severity: error
+  # Includes: "List every view one line at a time; do not add folder wildcards"
+  includes-wildcard-usage:
+    severity: error
+
+  # --- Built-in rules deliberately NOT enabled ----------------------------------------
+  # count-measure-name-prefix       Wants count_*; the guidelines say <name>_count and
+  #                                 unique_<entity>_count (custom rules below).
+  # dimension-group-name-suffix     Forbids _at; the guidelines require _at
+  #                                 (custom rule below).
+  # primary-key-visibility          The guidelines group identifiers under "IDs", not hidden.
+  # primary-key-first-dimension     Not in the guidelines.
+  # view-primary-key-presence       Not in the guidelines.
+  # view-dimension-order            Not in the guidelines (alphabetical order is not required).
+  # view-measure-order              Not in the guidelines.
+  # dimension-label-redundant-yes-no  Not in the guidelines.
+  # explore-fields-presence         Not in the guidelines.
+  # join-relationship-presence      Not in the guidelines.
+  # pdt-view-name-prefix            Not in the guidelines.
+  # sql-table-name-uniqueness       Synapse and Databricks views legitimately share a name.
+
+overrides:
+  # Refinement files (view: +name) change only what differs on Databricks. They inherit
+  # the base view's label, descriptions and formats, so those rules do not apply.
+  - files:
+      - "view_refinements/**"
+    rules:
+      view-label-presence:
+        severity: disabled
+      visible-dimension-description-presence:
+        severity: disabled
+      visible-measure-description-presence:
+        severity: disabled
+      numeric-measure-value-format-presence:
+        severity: disabled
+      numeric-dimension-value-format-presence:
+        severity: disabled
+
+custom_rules:
+  # Dimension specific: "Every date and snapshot dimension group name must end in _at"
+  - name: dimension-group-name-ends-with-at
+    title: "Time dimension groups must end in _at (for example snapshot_at, allocated_at)"
+    rule_type: pattern_match
+    severity: error
+    rationale: "Looker appends the timeframe, so a field reads as snapshot_at_date. Avoid _time, _date and bare nouns."
+    select: "dimension_group"
+    filters:
+      type: "time"
+    match: "_at$"
+
+  # Dimension specific: "Do not use dimension group type=duration"
+  - name: dimension-group-no-duration
+    title: "Do not use dimension_group type: duration"
+    rule_type: pattern_match
+    severity: error
+    rationale: "It generates an inefficient expression and is not useful for filtering."
+    select: "dimension_group"
+    filters:
+      type: "duration"
+    # The filter selects only duration groups; no name is allowed to match.
+    should_not_match: ".*"
+
+  # Shared: "All numeric dimensions should have value_format_name explicitly defined"
+  - name: numeric-dimension-value-format-presence
+    title: "Numeric dimensions must define value_format_name"
+    rule_type: property
+    severity: error
+    select: "dimension"
+    filters:
+      type: "number"
+    requires_child: ["value_format_name", "value_format"]
+
+  # Views: label is Title Case words, within 5 words
+  - name: view-label-title-case-max-5-words
+    title: "View label must be Title Case words, at most 5 words"
+    rule_type: pattern_match
+    severity: error
+    select: "view.label"
+    match: "^[A-Z0-9][^ ]*( [A-Z0-9(][^ ]*){0,4}$"
+
+  # Measures: "Use count instead of number of or total for count measures"
+  - name: count-measure-name-ends-with-count
+    title: "Count measures must end in _count (for example active_user_count)"
+    rule_type: pattern_match
+    severity: error
+    select: "measure"
+    filters:
+      type: "count"
+    match: "_count$"
+
+  # Measures: "Use unique_<entity>_count when using count_distinct"
+  - name: count-distinct-measure-name
+    title: "count_distinct measures must be named unique_<entity>_count"
+    rule_type: pattern_match
+    severity: error
+    select: "measure"
+    filters:
+      type: "count_distinct"
+    match: "^unique_.+_count$"
+
+  # Measures: "If a measure is a percentage, add pct_ as prefix"
+  - name: percentage-measure-name-prefix
+    title: "Percentage measures must start with pct_"
+    rule_type: pattern_match
+    severity: error
+    select: "measure"
+    filters:
+      value_format_name: ["percent_0", "percent_1", "percent_2", "percent_3", "percent_4"]
+    match: "^pct_"
