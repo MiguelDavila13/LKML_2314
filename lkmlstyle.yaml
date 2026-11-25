@@ -14,7 +14,6 @@ ruleset_version: "none"
 # The validator only reads .lkml and .lookml. Dashboards are not views or explores.
 ignore_files:
   - "Dashboards/**"
-  - "views/*"
 
 rules:
   # --- Built-in rules that match the guidelines ---------------------------------------
